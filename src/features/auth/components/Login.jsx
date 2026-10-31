@@ -5,7 +5,7 @@ export const Login = () => {
   const [message, setMessage] = useState('')
 
   return (
-    <main className="container flex-grow-1 py-5 d-flex align-items-center">
+    <main id="main-content" className="container flex-grow-1 py-5 d-flex align-items-center">
       <div className="row w-100 justify-content-center">
         <div className="col-12 col-sm-10 col-md-7 col-lg-5 col-xl-4">
           <form

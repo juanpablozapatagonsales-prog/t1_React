@@ -3,6 +3,25 @@ import axios from "axios";
 
 const API_URL = "https://rickandmortyapi.com/api/character";
 
+const especiesEnEspanol = {
+  Alien: "Alienígena",
+  Animal: "Animal",
+  Cronenberg: "Cronenberg",
+  Disease: "Enfermedad",
+  Human: "Humano",
+  Humanoid: "Humanoide",
+  "Mythological Creature": "Criatura mitológica",
+  Poopybutthole: "Poopybutthole",
+  Robot: "Robot",
+  unknown: "Especie desconocida",
+};
+
+const estadosEnEspanol = {
+  Alive: "Vivo",
+  Dead: "Muerto",
+  unknown: "Desconocido",
+};
+
 export const Api = () => {
   const [characters, setCharacters] = useState([]);
   const [search, setSearch] = useState("");
@@ -14,7 +33,10 @@ export const Api = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => setQuery(search.trim()), 350);
+    const timeoutId = window.setTimeout(
+      () => setQuery(search.trim().toLocaleLowerCase()),
+      350,
+    );
     return () => window.clearTimeout(timeoutId);
   }, [search]);
 
@@ -63,15 +85,9 @@ export const Api = () => {
   );
 
   return (
-    <main className="container flex-grow-1 py-4 py-md-5">
+    <main id="main-content" className="container flex-grow-1 py-4 py-md-5">
       <header className="text-center mb-4 mb-md-5">
-        <p className="text-primary fw-semibold text-uppercase mb-2">
-          Explora el multiverso
-        </p>
-        <h1 className="display-5 fw-bold">Personajes de Rick y Morty</h1>
-        <p className="text-secondary mb-0">
-          Busca tus personajes favoritos y recorre los resultados.
-        </p>
+        <h1 className="display-5 fw-bold">Rick y Morty</h1>
       </header>
 
       <section className="mb-4" aria-label="Buscar personajes">
@@ -83,7 +99,7 @@ export const Api = () => {
             id="character-search"
             className="form-control"
             type="search"
-            placeholder="Ej. Rick, Morty..."
+            placeholder="Busca un personaje"
             value={search}
             onChange={(event) => {
               setSearch(event.target.value);
@@ -129,7 +145,7 @@ export const Api = () => {
 
       {!loading && !error && characters.length > 0 && (
         <>
-          <p className="text-secondary mb-3" aria-live="polite">
+          <p className="text-light mb-3" aria-live="polite">
             {totalCharacters} personajes encontrados
           </p>
           <div className="row g-3 g-md-4">
@@ -138,34 +154,31 @@ export const Api = () => {
                 className="col-12 col-sm-6 col-lg-4 col-xl-3"
                 key={character.id}
               >
-                <article className="card h-100 shadow-sm">
+                <article className="card h-100">
                   <img
                     className="card-img-top"
                     src={character.image}
                     alt={`Imagen de ${character.name}`}
                     loading="lazy"
+                    decoding="async"
                   />
                   <div className="card-body d-flex flex-column">
                     <h2 className="card-title h5">{character.name}</h2>
-                    <p className="card-text text-secondary mb-2">
-                      {character.species}
-                      {character.type ? ` · ${character.type}` : ""}
+                    <p className="card-text text-light mb-2">
+                      {especiesEnEspanol[character.species] ?? "Otra especie"}
                     </p>
                     <div className="mt-auto">
                       <span
-                        className={`badge text-bg-${
+                        className={`badge rounded-pill text-bg-${
                           character.status === "Alive"
                             ? "success"
                             : character.status === "Dead"
-                              ? "danger"
-                              : "secondary"
+                              ? "secondary"
+                              : "primary"
                         }`}
                       >
-                        {character.status}
+                        {estadosEnEspanol[character.status] ?? "Desconocido"}
                       </span>
-                      <p className="small text-secondary mt-3 mb-0">
-                        <strong>Ubicación:</strong> {character.location.name}
-                      </p>
                     </div>
                   </div>
                 </article>
@@ -184,7 +197,19 @@ export const Api = () => {
                     onClick={() => setPage((currentPage) => currentPage - 1)}
                     aria-label="Página anterior"
                   >
-                    Anterior
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-arrow-left"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+                      />
+                    </svg>
                   </button>
                 </li>
                 {visiblePages.map((pageNumber) => (
@@ -214,7 +239,19 @@ export const Api = () => {
                     onClick={() => setPage((currentPage) => currentPage + 1)}
                     aria-label="Página siguiente"
                   >
-                    Siguiente
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-arrow-right"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
+                      />
+                    </svg>
                   </button>
                 </li>
               </ul>

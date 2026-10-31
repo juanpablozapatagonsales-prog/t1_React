@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom'
-
 export const Footer = () => {
   return (
-    <footer className="bg-dark mt-auto">
-      <div className="container py-4 d-flex flex-column align-items-center text-center gap-3">
-        <Link className="text-white text-decoration-none fw-bold" to="/">Nébula <span className="d-block small text-white-50">GAMING SYSTEMS</span></Link>
-        <p className="text-white-50 mb-0">Computadores para jugar, estudiar y trabajar.</p>
-        <small className="text-white-50">© 2026 Nébula Gaming</small>
+    <footer className="bg-black border-top border-secondary mt-auto">
+      <div className="container py-4">
+        <div className="row align-items-center text-center text-md-start g-3">
+          <p className="col-12 col-md-4 text-white-100 mb-0 text-center ">
+            Computadores para jugar, estudiar y trabajar.
+          </p>
+        </div>
       </div>
     </footer>
-  )
-}
+  );
+};

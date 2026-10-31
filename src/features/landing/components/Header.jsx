@@ -7,26 +7,31 @@ export const Header = () => {
 
   return (
     <header className="sticky-top">
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+      <nav
+        className="navbar navbar-expand-lg bg-black border-bottom border-secondary"
+        data-bs-theme="dark"
+      >
         <div className="container">
           <Link
-            className="navbar-brand d-flex align-items-center gap-2 fw-bold"
+            className="navbar-brand d-flex align-items-center text-info"
             to="/"
             onClick={closeMenu}
+            aria-label="Inicio"
+            title="Inicio"
           >
-            <span
-              className="badge rounded-3 text-bg-primary fs-5"
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="36"
+              fill="currentColor"
+              viewBox="0 0 16 16"
               aria-hidden="true"
             >
-              N
-            </span>
-            <span>
-              Nébula{" "}
-              <span className="d-block small text-white-50">
-                GAMING SYSTEMS
-              </span>
-            </span>
+              <path d="M2.5 2A1.5 1.5 0 0 0 1 3.5v7A1.5 1.5 0 0 0 2.5 12h11a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 13.5 2zm0 1h11a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5" />
+              <path d="M.5 13a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1z" />
+            </svg>
           </Link>
+
           <button
             className="navbar-toggler"
             type="button"
@@ -37,13 +42,18 @@ export const Header = () => {
           >
             <span className="navbar-toggler-icon" aria-hidden="true" />
           </button>
+
           <div
             className={`collapse navbar-collapse${menuOpen ? " show" : ""}`}
             id="mainNavbar"
           >
-            <ul className="navbar-nav text-center ms-md-auto me-md-4 mb-3 mb-md-0">
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/api" onClick={closeMenu}>
+            <ul className="navbar-nav me-lg-4 mb-3 mb-lg-0 fst-italic ">
+              <li className="nav-item ">
+                <NavLink
+                  className="nav-link justify-content-start"
+                  to="/api"
+                  onClick={closeMenu}
+                >
                   API
                 </NavLink>
               </li>
@@ -57,18 +67,9 @@ export const Header = () => {
                   Props
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/#equipos" onClick={closeMenu}>
-                  Equipos
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/#marcas" onClick={closeMenu}>
-                  Marcas
-                </a>
-              </li>
             </ul>
-            <div className="d-grid d-sm-flex justify-content-center gap-2">
+
+            <div className="d-grid d-sm-flex justify-content-center gap-2 ms-lg-auto fst-italic">
               <Link
                 className="btn btn-outline-light"
                 to="/login"
@@ -77,7 +78,7 @@ export const Header = () => {
                 Iniciar sesión
               </Link>
               <Link
-                className="btn btn-primary"
+                className="btn btn-outline-light"
                 to="/registro"
                 onClick={closeMenu}
               >
@@ -90,3 +91,4 @@ export const Header = () => {
     </header>
   );
 };
+// fuente de letras en cursiva : fst-italic
